@@ -9,7 +9,9 @@
 		"build": "nest build",
 		"start": "nest start",
 		"test": "jest",
-		"dev": "nest start --watch"
+		"dev": "nest start --watch",
+		"lint": "biome check .",
+		"format": "biome format --write ."
 	},
 	"dependencies": {
 		"@nestjs/common": "^11.0.1",

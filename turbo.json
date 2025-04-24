@@ -7,7 +7,10 @@
 			"outputs": ["dist/**"]
 		},
 		"lint": {
-			"dependsOn": ["^lint"]
+			"outputs": []
+		},
+		"format": {
+			"outputs": []
 		},
 		"check-types": {
 			"dependsOn": ["^check-types"]

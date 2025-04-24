@@ -7,7 +7,9 @@
 		"android": "expo start --android",
 		"ios": "expo start --ios",
 		"test": "jest --watchAll",
-		"dev": "expo start"
+		"dev": "expo start",
+		"lint": "biome check .",
+		"format": "biome format --write ."
 	},
 	"jest": {
 		"preset": "jest-expo"
