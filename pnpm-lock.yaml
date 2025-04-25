@@ -147,6 +147,9 @@ importers:
       '@nestjs/platform-express':
         specifier: 11.0.1
         version: 11.0.1(@nestjs/common@11.0.1(class-transformer@0.5.1)(class-validator@0.14.1)(reflect-metadata@0.2.2)(rxjs@7.8.1))(@nestjs/core@11.0.1)
+      axios:
+        specifier: 1.9.0
+        version: 1.9.0
       class-transformer:
         specifier: 0.5.1
         version: 0.5.1
@@ -159,14 +162,8 @@ importers:
       passport:
         specifier: 0.7.0
         version: 0.7.0
-      passport-github2:
-        specifier: 0.1.12
-        version: 0.1.12
-      passport-google-oauth20:
-        specifier: 2.0.0
-        version: 2.0.0
       passport-jwt:
-        specifier: ^4.0.1
+        specifier: 4.0.1
         version: 4.0.1
       pg:
         specifier: 8.15.5
@@ -202,14 +199,8 @@ importers:
       '@types/node':
         specifier: 22.10.7
         version: 22.10.7
-      '@types/passport-github2':
-        specifier: ^1.2.9
-        version: 1.2.9
-      '@types/passport-google-oauth20':
-        specifier: ^2.0.16
-        version: 2.0.16
       '@types/passport-jwt':
-        specifier: ^4.0.1
+        specifier: 4.0.1
         version: 4.0.1
       '@types/pg':
         specifier: 8.11.14
@@ -1959,20 +1950,8 @@ packages:
   '@types/node@22.10.7':
     resolution: {integrity: sha512-V09KvXxFiutGp6B7XkpaDXlNadZxrzajcY50EuoLIpQ6WWYCSvf19lVIazzfIzQvhUN2HjX12spLojTnhuKlGg==}
 
-  '@types/oauth@0.9.6':
-    resolution: {integrity: sha512-H9TRCVKBNOhZZmyHLqFt9drPM9l+ShWiqqJijU1B8P3DX3ub84NjxDuy+Hjrz+fEca5Kwip3qPMKNyiLgNJtIA==}
-
-  '@types/passport-github2@1.2.9':
-    resolution: {integrity: sha512-/nMfiPK2E6GKttwBzwj0Wjaot8eHrM57hnWxu52o6becr5/kXlH/4yE2v2rh234WGvSgEEzIII02Nc5oC5xEHA==}
-
-  '@types/passport-google-oauth20@2.0.16':
-    resolution: {integrity: sha512-ayXK2CJ7uVieqhYOc6k/pIr5pcQxOLB6kBev+QUGS7oEZeTgIs1odDobXRqgfBPvXzl0wXCQHftV5220czZCPA==}
-
   '@types/passport-jwt@4.0.1':
     resolution: {integrity: sha512-Y0Ykz6nWP4jpxgEUYq8NoVZeCQPo1ZndJLfapI249g1jHChvRfZRO/LS3tqu26YgAS/laI1qx98sYGz0IalRXQ==}
-
-  '@types/passport-oauth2@1.4.17':
-    resolution: {integrity: sha512-ODiAHvso6JcWJ6ZkHHroVp05EHGhqQN533PtFNBkg8Fy5mERDqsr030AX81M0D69ZcaMvhF92SRckEk2B0HYYg==}
 
   '@types/passport-strategy@0.2.38':
     resolution: {integrity: sha512-GC6eMqqojOooq993Tmnmp7AUTbbQSgilyvpCYQjT+H6JfG/g6RGc7nXEniZlp0zyKJ0WUdOiZWLBZft9Yug1uA==}
@@ -2308,6 +2287,9 @@ packages:
     resolution: {integrity: sha512-+q/t7Ekv1EDY2l6Gda6LLiX14rU9TV20Wa3ofeQmwPFZbOMo9DXrLbOjFaaclkXKWidIaopwAObQDqwWtGUjqg==}
     engines: {node: '>= 4.0.0'}
 
+  axios@1.9.0:
+    resolution: {integrity: sha512-re4CqKTJaURpzbLHtIi6XpDv20/CnpXOtjRY5/CU32L8gU8ek9UIivcfvSWvmKEngmVbrUtPpdDwWDWL7DNHvg==}
+
   b4a@1.6.7:
     resolution: {integrity: sha512-OnAYlL5b7LEkALw87fUVafQw5rVR9RjwGd4KUwNQ6DrrNmaVaUCgLipfVlzrPQ4tWOR9P0IXGNOx50jYCCdSJg==}
 
@@ -2387,10 +2369,6 @@ packages:
 
   base64-js@1.5.1:
     resolution: {integrity: sha512-AKpaYlHn8t4SVbOHCy+b5+KKgvR4vrsD8vbvrbiQJps7fKDTkjkDry6ji0rUJjC0kzbNePLwzxq8iypo41qeWA==}
-
-  base64url@3.0.1:
-    resolution: {integrity: sha512-ir1UPr3dkwexU7FdV8qBBbNDRUhMmIekYMFZfi+C/sLNnRESKPl23nB9b2pltqfOQNnGzsDdId90AEtG5tCx4A==}
-    engines: {node: '>=6.0.0'}
 
   better-opn@3.0.2:
     resolution: {integrity: sha512-aVNobHnJqLiUelTaHat9DZ1qM2w0C0Eym4LPI/3JxOnSokGVdsl1T1kN7TFvsEAD8G47A6VKQ0TVHqbBnYMJlQ==}
@@ -3483,6 +3461,15 @@ packages:
   flow-parser@0.268.0:
     resolution: {integrity: sha512-URZmPy/jKDDIJUHUfC+5KNwaPcfONTL3R8xltQWVEoCKLWowVebEBg89nbAnYHNo6ev8KzKWFpOROfHZdaCoxA==}
     engines: {node: '>=0.4.0'}
+
+  follow-redirects@1.15.9:
+    resolution: {integrity: sha512-gew4GsXizNgdoRyqmyfMHyAmXsZDk6mHkSxZFCzW9gwlbtOW44CDtYavM+y+72qD/Vq2l550kMF52DT8fOLJqQ==}
+    engines: {node: '>=4.0'}
+    peerDependencies:
+      debug: '*'
+    peerDependenciesMeta:
+      debug:
+        optional: true
 
   fontfaceobserver@2.3.0:
     resolution: {integrity: sha512-6FPvD/IVyT4ZlNe7Wcn5Fb/4ChigpucKYSvD6a+0iMoLn2inpo711eyIcKjmDtE5XNcgAkSH9uN/nfAeZzHEfg==}
@@ -4739,9 +4726,6 @@ packages:
   nwsapi@2.2.20:
     resolution: {integrity: sha512-/ieB+mDe4MrrKMT8z+mQL8klXydZWGR5Dowt4RAGKbJ3kIGEx3X4ljUo+6V73IXtUPWgfOlU5B9MlGxFO5T+cA==}
 
-  oauth@0.10.2:
-    resolution: {integrity: sha512-JtFnB+8nxDEXgNyniwz573xxbKSOu3R8D40xQKqcjwJ2CDkYqUDI53o6IuzDJBx60Z8VKCm271+t8iFjakrl8Q==}
-
   ob1@0.81.4:
     resolution: {integrity: sha512-EZLYM8hfPraC2SYOR5EWLFAPV5e6g+p83m2Jth9bzCpFxP1NDQJYXdmXRB2bfbaWQSmm6NkIQlbzk7uU5lLfgg==}
     engines: {node: '>=18.18'}
@@ -4870,20 +4854,8 @@ packages:
     resolution: {integrity: sha512-CiyeOxFT/JZyN5m0z9PfXw4SCBJ6Sygz1Dpl0wqjlhDEGGBP1GnsUVEL0p63hoG1fcj3fHynXi9NYO4nWOL+qQ==}
     engines: {node: '>= 0.8'}
 
-  passport-github2@0.1.12:
-    resolution: {integrity: sha512-3nPUCc7ttF/3HSP/k9sAXjz3SkGv5Nki84I05kSQPo01Jqq1NzJACgMblCK0fGcv9pKCG/KXU3AJRDGLqHLoIw==}
-    engines: {node: '>= 0.8.0'}
-
-  passport-google-oauth20@2.0.0:
-    resolution: {integrity: sha512-KSk6IJ15RoxuGq7D1UKK/8qKhNfzbLeLrG3gkLZ7p4A6DBCcv7xpyQwuXtWdpyR0+E0mwkpjY1VfPOhxQrKzdQ==}
-    engines: {node: '>= 0.4.0'}
-
   passport-jwt@4.0.1:
     resolution: {integrity: sha512-UCKMDYhNuGOBE9/9Ycuoyh7vP6jpeTp/+sfMJl7nLff/t6dps+iaeE0hhNkKN8/HZHcJ7lCdOyDxHdDoxoSvdQ==}
-
-  passport-oauth2@1.8.0:
-    resolution: {integrity: sha512-cjsQbOrXIDE4P8nNb3FQRCCmJJ/utnFKEz2NX209f7KOHPoX18gF7gBzBbLLsj2/je4KrgiwLLGjf0lm9rtTBA==}
-    engines: {node: '>= 0.4.0'}
 
   passport-strategy@1.0.0:
     resolution: {integrity: sha512-CB97UUvDKJde2V0KDWWB3lyf6PC3FaZP7YxZ2G8OAtn9p4HI9j9JLP9qjOGZFvyl8uwNT8qM+hGnz/n16NI7oA==}
@@ -5116,6 +5088,9 @@ packages:
   proxy-addr@2.0.7:
     resolution: {integrity: sha512-llQsMLSUDUPT44jdrU/O37qlnifitDP+ZwrmmZcoSKyLKvtZxpyV0n2/bD/N4tBAAZ/gJEdZU7KMraoK1+XYAg==}
     engines: {node: '>= 0.10'}
+
+  proxy-from-env@1.1.0:
+    resolution: {integrity: sha512-D+zkORCbA9f1tdWRK0RaCR3GPv50cMxcrz4X8k5LTSUD1Dkw47mKJEZQNunItRTkWwgtaUSo1RVFRIG9ZXiFYg==}
 
   psl@1.15.0:
     resolution: {integrity: sha512-JZd3gMVBAVQkSs6HdNZo9Sdo0LNcQeMNP3CozBJb3JYC/QUYZTnKxP+f8oWRX4rHP5EurWxqAHTSwUCjlNKa1w==}
@@ -6083,9 +6058,6 @@ packages:
   ua-parser-js@1.0.40:
     resolution: {integrity: sha512-z6PJ8Lml+v3ichVojCiB8toQJBuwR42ySM4ezjXIqXK3M0HczmKQ3LF4rhU55PfD99KEEXQG6yb7iOMyvYuHew==}
     hasBin: true
-
-  uid2@0.0.4:
-    resolution: {integrity: sha512-IevTus0SbGwQzYh3+fRsAMTVVPOoIVufzacXcHPmdlle1jUpq7BRL+mw3dgeLanvGZdwwbWhRV6XrcFNdBmjWA==}
 
   uid@2.0.2:
     resolution: {integrity: sha512-u3xV3X7uzvi5b1MncmZo3i2Aw222Zk1keqLA1YkHldREkAhAqi65wuPfe7lHx8H/Wzy+8CE7S7uS3jekIM5s8g==}
@@ -8748,32 +8720,10 @@ snapshots:
     dependencies:
       undici-types: 6.20.0
 
-  '@types/oauth@0.9.6':
-    dependencies:
-      '@types/node': 22.10.7
-
-  '@types/passport-github2@1.2.9':
-    dependencies:
-      '@types/express': 5.0.0
-      '@types/passport': 1.0.17
-      '@types/passport-oauth2': 1.4.17
-
-  '@types/passport-google-oauth20@2.0.16':
-    dependencies:
-      '@types/express': 5.0.0
-      '@types/passport': 1.0.17
-      '@types/passport-oauth2': 1.4.17
-
   '@types/passport-jwt@4.0.1':
     dependencies:
       '@types/jsonwebtoken': 9.0.7
       '@types/passport-strategy': 0.2.38
-
-  '@types/passport-oauth2@1.4.17':
-    dependencies:
-      '@types/express': 5.0.0
-      '@types/oauth': 0.9.6
-      '@types/passport': 1.0.17
 
   '@types/passport-strategy@0.2.38':
     dependencies:
@@ -9150,6 +9100,14 @@ snapshots:
 
   at-least-node@1.0.0: {}
 
+  axios@1.9.0:
+    dependencies:
+      follow-redirects: 1.15.9
+      form-data: 4.0.2
+      proxy-from-env: 1.1.0
+    transitivePeerDependencies:
+      - debug
+
   b4a@1.6.7: {}
 
   babel-core@7.0.0-bridge.0(@babel/core@7.26.10):
@@ -9273,8 +9231,6 @@ snapshots:
     optional: true
 
   base64-js@1.5.1: {}
-
-  base64url@3.0.1: {}
 
   better-opn@3.0.2:
     dependencies:
@@ -10406,6 +10362,8 @@ snapshots:
   flow-enums-runtime@0.0.6: {}
 
   flow-parser@0.268.0: {}
+
+  follow-redirects@1.15.9: {}
 
   fontfaceobserver@2.3.0: {}
 
@@ -12018,8 +11976,6 @@ snapshots:
 
   nwsapi@2.2.20: {}
 
-  oauth@0.10.2: {}
-
   ob1@0.81.4:
     dependencies:
       flow-enums-runtime: 0.0.6
@@ -12152,26 +12108,10 @@ snapshots:
 
   parseurl@1.3.3: {}
 
-  passport-github2@0.1.12:
-    dependencies:
-      passport-oauth2: 1.8.0
-
-  passport-google-oauth20@2.0.0:
-    dependencies:
-      passport-oauth2: 1.8.0
-
   passport-jwt@4.0.1:
     dependencies:
       jsonwebtoken: 9.0.2
       passport-strategy: 1.0.0
-
-  passport-oauth2@1.8.0:
-    dependencies:
-      base64url: 3.0.1
-      oauth: 0.10.2
-      passport-strategy: 1.0.0
-      uid2: 0.0.4
-      utils-merge: 1.0.1
 
   passport-strategy@1.0.0: {}
 
@@ -12365,6 +12305,8 @@ snapshots:
     dependencies:
       forwarded: 0.2.0
       ipaddr.js: 1.9.1
+
+  proxy-from-env@1.1.0: {}
 
   psl@1.15.0:
     dependencies:
@@ -13470,8 +13412,6 @@ snapshots:
   typescript@5.8.2: {}
 
   ua-parser-js@1.0.40: {}
-
-  uid2@0.0.4: {}
 
   uid@2.0.2:
     dependencies:

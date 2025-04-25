@@ -1,53 +1,123 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
+import axios from 'axios';
 import { User, UserInsert } from '@/drizzle/schema/users';
 import { UsersService } from '@/users/users.service';
+import { JwtPayload } from './interfaces/jwt-payload.interface';
 
 @Injectable()
 export class AuthService {
+	private logger = new Logger(AuthService.name);
+
 	constructor(
 		private userService: UsersService,
 		private jwtService: JwtService,
 	) {}
 
-	async validateOAuthUser(profile: any): Promise<User> {
-		const email = profile.emails?.[0]?.value;
-		if (!email) {
-			throw new Error('Email not provided by OAuth provider');
+	async validateGoogleToken(token: string): Promise<User> {
+		try {
+			// Verify the token with Google
+			const response = await axios.get(
+				'https://www.googleapis.com/oauth2/v3/userinfo',
+				{
+					headers: { Authorization: `Bearer ${token}` },
+				},
+			);
+
+			const { sub, email, name } = response.data;
+
+			if (!email) {
+				throw new UnauthorizedException('Email not provided by Google');
+			}
+
+			// Find or create user
+			let user = await this.userService.findByProviderId(sub);
+
+			if (!user) {
+				// Try to find by email
+				user = await this.userService.findByEmail(email);
+
+				if (user) {
+					// Update existing user with Google ID
+					user = await this.userService.update(user.id, {
+						providerId: sub,
+						provider: user.provider || 'google',
+					});
+				} else {
+					// Create new user
+					user = await this.userService.create({
+						email,
+						name,
+						providerId: sub,
+						provider: 'google',
+					});
+				}
+			}
+
+			return user;
+		} catch (error) {
+			this.logger.error('Error validating Google token', error);
+			throw new UnauthorizedException('Invalid Google token');
 		}
+	}
 
-		// Check if user already exists
-		let user: User | undefined;
-
-		user = await this.userService.findByProviderId(profile.id);
-
-		// If not found by provider ID, try to find by email
-		if (!user) {
-			user = await this.userService.findByEmail(email);
-		}
-
-		// If user exists but doesn't have this provider ID, update the user
-		if (user) {
-			user = await this.userService.update(user.id, {
-				providerId: profile.id,
+	async validateGithubToken(token: string): Promise<User> {
+		try {
+			// Get user info from GitHub
+			const userResponse = await axios.get('https://api.github.com/user', {
+				headers: { Authorization: `token ${token}` },
 			});
-		} else {
-			// Create a new user if none exists
-			const newUser: UserInsert = {
-				email,
-				name: profile.displayName || email.split('@')[0],
-				provider: profile.provider,
-				providerId: profile.id,
-			};
 
-			user = await this.userService.create(newUser);
+			// GitHub doesn't always return email in user endpoint, so we need a separate call
+			const emailsResponse = await axios.get(
+				'https://api.github.com/user/emails',
+				{
+					headers: { Authorization: `token ${token}` },
+				},
+			);
+
+			const primaryEmail = emailsResponse.data.find(
+				(email) => email.primary,
+			)?.email;
+			if (!primaryEmail) {
+				throw new UnauthorizedException('Email not provided by GitHub');
+			}
+
+			const { id, login, name } = userResponse.data;
+
+			// Find or create user
+			let user = await this.userService.findByProviderId(id.toString());
+
+			if (!user) {
+				// Try to find by email
+				user = await this.userService.findByEmail(primaryEmail);
+
+				if (user) {
+					// Update existing user with GitHub ID
+					user = await this.userService.update(user.id, {
+						providerId: id.toString(),
+						provider: user.provider || 'github',
+					});
+				} else {
+					// Create new user
+					user = await this.userService.create({
+						email: primaryEmail,
+						name: name || login,
+						providerId: id.toString(),
+						provider: 'github',
+					});
+				}
+			}
+
+			return user;
+		} catch (error) {
+			this.logger.error('Error validating GitHub token', error);
+			throw new UnauthorizedException('Invalid GitHub token');
 		}
-
-		return user;
 	}
 
 	generateJwt(user: User) {
-		const payload = {
+		const payload: JwtPayload = {
 			sub: user.id,
 			email: user.email,
 			name: user.name,

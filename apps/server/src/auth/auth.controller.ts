@@ -1,66 +1,46 @@
-import { Controller, Get, Req, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Post, Req, UseGuards } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
-import { Request } from 'express';
 import { AuthService } from './auth.service';
 
 @Controller('auth')
 export class AuthController {
 	constructor(private authService: AuthService) {}
 
-	@Get('google')
-	@UseGuards(AuthGuard('google'))
-	googleAuth() {}
+	@Post('google')
+	async googleLogin(@Body() body: { token: string }) {
+		const user = await this.authService.validateGoogleToken(body.token);
+		const jwt = this.authService.generateJwt(user);
 
-	@Get('google/callback')
-	@UseGuards(AuthGuard('google'))
-	googleAuthCallback(@Req() req: Request) {
-		if (!req.user) {
-			throw new Error('User information is missing');
-		}
-		const token = this.authService.generateJwt(
-			req.user as {
-				id: number;
-				provider: string;
-				providerId: string;
-				email: string | null;
-				name: string | null;
-				createdAt: Date;
-			},
-		);
 		return {
-			token,
+			user: {
+				id: user.id,
+				email: user.email,
+				name: user.name,
+				provider: user.provider,
+			},
+			token: jwt,
 		};
 	}
 
-	// GitHub Auth
-	@Get('github')
-	@UseGuards(AuthGuard('github'))
-	githubAuth() {}
+	@Post('github')
+	async githubLogin(@Body() body: { token: string }) {
+		const user = await this.authService.validateGithubToken(body.token);
+		const jwt = this.authService.generateJwt(user);
 
-	@Get('github/callback')
-	@UseGuards(AuthGuard('github'))
-	githubAuthCallback(@Req() req: Request) {
-		if (!req.user) {
-			throw new Error('User information is missing');
-		}
-		const token = this.authService.generateJwt(
-			req.user as {
-				id: number;
-				provider: string;
-				providerId: string;
-				email: string | null;
-				name: string | null;
-				createdAt: Date;
-			},
-		);
 		return {
-			token,
+			user: {
+				id: user.id,
+				email: user.email,
+				name: user.name,
+				provider: user.provider,
+			},
+			token: jwt,
 		};
 	}
 
 	@Get('profile')
 	@UseGuards(AuthGuard('jwt'))
-	getProfile(@Req() req: Request) {
+	getProfile(@Req() req) {
 		return req.user;
 	}
 }
