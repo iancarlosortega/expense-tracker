@@ -1,15 +1,9 @@
-import * as SplashScreen from 'expo-splash-screen';
-import 'react-native-reanimated';
-
 import { Text, View } from 'react-native';
 
-// Prevent the splash screen from auto-hiding before asset loading is complete.
-SplashScreen.preventAutoHideAsync();
-
-export default function RootLayout() {
+export default function HomeScreen() {
 	return (
-		<View style={{ flex: 1 }}>
-			<Text>Test</Text>
+		<View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+			<Text>Home Screen</Text>
 		</View>
 	);
 }
